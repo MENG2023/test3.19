@@ -1,0 +1,188 @@
+传引用类型参数(例如数组来解决这个问题)
+ 这个代码的运行过程,后面学习数组的时候再详细解释
+
+  public class TestMethod {
+   public static void main(String[] aregs) {
+   int [] arr = {10,20};
+    swap(arr);
+    System.out.println("arr[0]="+arr[0]+"arr[1]="+arr[1]);
+   }
+  public static void swap(int[] arr) {
+     int tmp = arr[0];
+     arr[0] = arr[1];
+     arr[1] = tmp;
+   }
+}
+//运行结果
+arr[0] = 20 arr[1] = 10
+
+1.5没有返回值的方法
+方法的返回值是可选的,有些时候可以没有的,没有时返回值类型必须写void
+
+ 代码示例
+class Test {
+   public static void main(String[] args) {
+   int a = 10;
+    int b = 20;
+     print(a,b);
+   }
+  public static void print(int x,int y) {
+   System.out.println("x="+x+"y="+y);
+  }
+}
+另外,如刚才的交换两个整数的方法,就是没有返回值的
+
+2.方法重载
+2.1为什么需要方法重载
+   public class TestMethod {
+    public static void main(String[] args) {
+         int a = 10;
+    int b = 20;
+    int ret = add(a,b);
+   System.out.println("ret="+ret);
+
+   double a2 = 10.5;
+   double b2 = 20.5;
+   double ret2 = add(a2,b2);
+   System.out.println("ret2 = "+ret2);
+ }
+ 
+public static int add(int x,int y) {
+  return x+y;
+  }
+}
+
+//编译出错
+
+Test.java:13:错误:不兼容的类型:从double转换到int可能会有损失
+       double ret2 = add(a2,b2);
+              ^
+ 由于参数类型不匹配,所以不能直接使用现有的add方法
+
+   一种比较简单粗暴的解决方法如下:
+    public class TestMethod {
+   public static void main(String[] args) {
+    int a = 10;
+    int b = 20;
+     int ret = addInt(a,b);
+    System.out.println("ret="+ret);
+
+    double a2 = 10.5;
+     double b2 = 20.5; 
+     double ret2 = addDouble(a2,b2);
+     System.out.println("ret2="+ret2);
+   }
+ public static int addInt(int x,int y) {
+  return x+y;
+  }
+  public static double addDouble(double x,double y) {
+   return x+y;
+  }
+}
+上述代码确实可以解决问题,但不用好的地方是:需要提供许多不同的方法名,而取名字本来就是让人头疼的事情.那能否将所有的名字都给成add呢?
+
+2.2方法重载概念
+再java中,如果多个方法的名字相同,参数列表不同,则称该几种方法被重载了
+public class TestMethod {
+ public static void main(STring[] args) {
+   add(1,2); //调用add(int,int)
+      add(1.5,2.5);//调用add(double,double)
+      add(1.5,2.5,3.5);//调用add(double,double,double)
+  }
+ 
+public static int add(int x,int y) {
+  return x+y;
+  }
+public static doube add(double x,double y) {
+   return x+y;
+  }
+ public static double add(double x,double y,double z) {
+   return x+y+z;
+  }
+}
+注意:
+1.方法名必须相同
+2.参数列表必须不同(参数的个数不同,参数的类型不同,类型的次序必须不同)
+3.与返回值类型是否相同无关
+
+//注意:两个方法如果仅仅只是因为返回值类型不同,是不能构成重载的
+  public class TestMethod {
+  public static void main(String[] args) {
+    int a = 10;
+    int b = 20;
+    int ret = add(a,b);
+   System.out.println("ret="+ret);
+}
+public static int add(int x,int y) {
+  return x+y;
+ }
+public static double add(int x,int y) {
+  return x+y;
+  }
+}
+//编译出错
+Test.java.13:错误:已在类Test中定义了方法add(int,int)
+ public static double add(int x,int y) {
+
+                ^
+一个错误
+
+4.编译器在编译代码时,会对实参类型进行推演,根据推演的结果来确定调用哪个方法
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
